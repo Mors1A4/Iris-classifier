@@ -37,7 +37,7 @@ def train_model(test_size, random_state):
 
     #here we render and save the confusion matrix
     disp = ConfusionMatrixDisplay(confusion_matrix=cm)
-    disp.plot().figure_.savefig(output_directory + "_matrix.png")
+    disp.plot().figure_.savefig(output_directory + "confusion_matrix.png")
 
     joblib.dump(model, output_directory + "model.joblib")
 
