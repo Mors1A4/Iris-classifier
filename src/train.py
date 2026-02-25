@@ -2,7 +2,11 @@ import argparse
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay
+
+import matplotlib
+#as we havent installed tkinter and just want to save the plot we use this line to run with no GUI
+matplotlib.use('Agg')
 
 def train_model(test_size, random_state):
     iris = load_iris()
@@ -22,6 +26,12 @@ def train_model(test_size, random_state):
     y_pred = model.predict(X_test)
     accuracy = accuracy_score(y_pred, y_test)
     print(f"Model tested on {len(y_pred)} examples with an accuracy of {accuracy}")
+
+    cm = confusion_matrix(y_pred, y_test)
+
+    #here we render and save the confusion matrix
+    disp = ConfusionMatrixDisplay(confusion_matrix=cm)
+    disp.plot().figure_.savefig('outputs/confusion/_matrix.png')
 
 if __name__ == "__main__":
 
