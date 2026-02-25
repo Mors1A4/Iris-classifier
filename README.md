@@ -11,7 +11,7 @@ git clone https://github.com/Mors1A4/Iris-classifier.git
 cd Iris-classifier
 python -m venv venv
 pip install -r requirements.txt
-python src/tain.py
+python src/train.py
 
 #optional
 python src/train.py --test_size x.x --random_state x
