@@ -3,7 +3,7 @@ from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay
-
+import os
 import matplotlib
 #as we havent installed tkinter and just want to save the plot we use this line to run with no GUI
 matplotlib.use('Agg')
@@ -29,9 +29,14 @@ def train_model(test_size, random_state):
 
     cm = confusion_matrix(y_pred, y_test)
 
+    #makes the output directory if it doesnt exist
+    output_directory = "outputs/confusion/"
+    if(not os.path.isdir(output_directory)):
+        os.mkdir(output_directory)
+
     #here we render and save the confusion matrix
     disp = ConfusionMatrixDisplay(confusion_matrix=cm)
-    disp.plot().figure_.savefig('outputs/confusion/_matrix.png')
+    disp.plot().figure_.savefig(output_directory + "_matrix.png")
 
 if __name__ == "__main__":
 
