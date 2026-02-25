@@ -5,6 +5,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay
 import os
 import matplotlib
+import joblib
 #as we havent installed tkinter and just want to save the plot we use this line to run with no GUI
 matplotlib.use('Agg')
 
@@ -24,19 +25,21 @@ def train_model(test_size, random_state):
 
     print("Testing model on unseen examples...")
     y_pred = model.predict(X_test)
-    accuracy = accuracy_score(y_pred, y_test)
+    accuracy = accuracy_score(y_test, y_pred)
     print(f"Model tested on {len(y_pred)} examples with an accuracy of {accuracy}")
 
-    cm = confusion_matrix(y_pred, y_test)
+    cm = confusion_matrix(y_test, y_pred)
 
     #makes the output directory if it doesnt exist
-    output_directory = "outputs/confusion/"
+    output_directory = "outputs/"
     if(not os.path.isdir(output_directory)):
         os.mkdir(output_directory)
 
     #here we render and save the confusion matrix
     disp = ConfusionMatrixDisplay(confusion_matrix=cm)
     disp.plot().figure_.savefig(output_directory + "_matrix.png")
+
+    joblib.dump(model, output_directory + "model.joblib")
 
 if __name__ == "__main__":
 
